@@ -7,9 +7,13 @@ const app           = express();
 const post          = require('./routers/post');
 const gallery       = require('./routers/gallery');
 const server = http.createServer(app);
+const path = require('path');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true}));
+app.use(express.static('public')); 
+app.use('/public/img', express.static('public/img'));
+
 
 /*ROUTERS*/
 app.get('/', (req, res) => {
