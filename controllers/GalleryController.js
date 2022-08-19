@@ -20,9 +20,7 @@ const upload = multer({storage: storage, dest: uploadDir });
 const getAllContent = async  (req, res) => {
     try {
         const contents = await gallery.getAllContent();
-        if(contents){
-            res.status(201).json({ data : contents});
-        }        
+        res.status(201).json({ data : contents});
     } catch (error) {
         res.status(400).json({ message : error });
     }

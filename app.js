@@ -4,8 +4,9 @@ const express       = require('express');
 require('dotenv').config();
 const bodyParser    = require('body-parser');
 const app           = express();  
-const post          = require('./routers/post');
-const gallery       = require('./routers/gallery');
+const posts          = require('./routers/post');
+const gallerys       = require('./routers/gallery');
+const comments      = require('./routers/comment');
 const server = http.createServer(app);
 const path = require('path');
 
@@ -19,8 +20,9 @@ app.use('/public/img', express.static('public/img'));
 app.get('/', (req, res) => {
     res.send('Welcome To NextJs Blog Api');
 })
-app.use('/post/', post);
-app.use('/gallery', gallery);
+app.use('/posts/', posts);
+app.use('/gallerys', gallerys);
+app.use('/comments', comments);
 
 server.listen(port)
 

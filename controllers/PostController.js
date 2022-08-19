@@ -1,14 +1,13 @@
 const post = require('../models/ModelPost');
 const multer = require("multer");
-const timeZoneOffset = (new Date()).getTimezoneOffset() * 60000;
-const localISOTime = (new Date(Date.now() - timeZoneOffset)).toISOString().replace('T', ' ').substring(0, 19);
+//const timeZoneOffset = (new Date()).getTimezoneOffset() * 60000;
+//const localISOTime = (new Date(Date.now() - timeZoneOffset)).toISOString().replace('T', ' ').substring(0, 19);
+const {localISOTime} = require('../helpers/globalHelper');
 
 const getAllPost = async (req, res) =>{
     try {
         const postData = await post.getAllPost();
-        if(postData){
-            res.status(201).json({data : postData});
-        }
+        res.status(201).json({data : postData});
     } catch (error) {
         res.status(400).json({message : error});
     }
