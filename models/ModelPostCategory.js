@@ -10,7 +10,7 @@ const getAllPostCategory = () => {
     return postCategory;
 }
 
-const getPostCategoryById = (postId) => {
+const getPostCategoryByPostId = (postId) => {
     return knex('post_category').where({postId: postId}).first();
 }
 
@@ -18,14 +18,14 @@ const editPostCategory = (data, postId) => {
     return knex('post_category').where({postId: postId}).update(data);
 }
 
-const deletePostCategory = (id) => {
+const deletePostCategory = (postId) => {
     return knex('post_category').where({postId: postId }).delete();
 }
 
 
 module.exports = {
     getAllPostCategory,
-    getPostCategoryById,
+    getPostCategoryByPostId,
     insertPostCategory,
     editPostCategory,
     deletePostCategory

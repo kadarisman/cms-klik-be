@@ -1,18 +1,16 @@
 const router = require('express').Router();
 const { 
     getAllComment,
-    getAllCommentByPostIdById,
+    getCommentById,
     createComment,
     updateComment,
-    deleteComment,
-    replyComment
+    deleteComment
  } = require('./../controllers/CommentController');
 
 router.get('/', getAllComment);
-router.get('/:postId/:id?', getAllCommentByPostIdById);
+router.get('/:id', getCommentById);
 router.post('/', createComment);
 router.put('/:id', updateComment);
 router.delete('/:id', deleteComment);
-router.post('/', replyComment);
 
 module.exports = router;

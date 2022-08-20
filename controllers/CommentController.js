@@ -11,30 +11,19 @@ const getAllComment = async (req, res) => {
     }
 }
 
-const getAllCommentByPostIdById = async (req, res) =>{
+const getCommentById = async (req, res) =>{
     try {
-        const postId = req.params.postId;
         const id = req.params.id;
-
-        if(!postId){
-            res.status(201).json({ message : "Parameter id can't be empty"});
+        if(!id){
+            res.status(201).json({ message : `Parameter can't be empty`});
             return false;
         }
-        const commentData = await comment.getAllCommentByPostId(postId);
-        if(commentData == ''){
-            res.status(201).json({ message : `Comments with post id ${postId} not available`});
+        const commentById = await comment.getCommentById(id);
+        if(!commentById){
+            res.status(201).json({ message : `Comments with id ${id} not available`});
             return false;
         }
-        if(id){
-            const commentByPostIdAndById = await comment.getCommentByPostIdAndById(postId, id);
-            if(commentByPostIdAndById == ''){
-                res.status(201).json({message: `Comment with post id ${postId} and id ${id} not available or has been deleted`});
-                return false;
-            }
-           res.status(201).json({ data : commentByPostIdAndById});
-           return false;
-        }
-        res.status(201).json({ data : commentData});
+        res.status(201).json({ data : commentById});
     } catch (error) {
         res.status(500).json({ message : error});    
     }
@@ -42,17 +31,19 @@ const getAllCommentByPostIdById = async (req, res) =>{
 
 const createComment = async (req, res) =>{
     try {       
+        const parentId = req.body.parentId;
         const commentData ={
             postId          : req.body.postId,
+            parentId        : parentId ? parentId : null,
             title           : req.body.title,
             published       : 1,
             createdAt       : localISOTime,
             publishedAt     : localISOTime,
             content         : req.body.content
         };
-       comment.insertComment(commentData)
+        comment.insertComment(commentData)
         .then(row =>{
-            res.status(201).json({ message : "Post commented" });
+            res.status(201).json({ message : parentId ? "Comments has been replied" : "Post commented" });
         })
         .catch(err =>{
             res.status(400).json({ message : err });
@@ -62,11 +53,10 @@ const createComment = async (req, res) =>{
     }
 }
 
-
 const updateComment = async (req, res) => {
     try {
         const id = req.params.id;
-        console.log(id);
+        const parentId = req.body.parentId;
         if(!id){
             res.status(201).json({ message : `Parameter id can't be empty`});
             return false;
@@ -77,6 +67,7 @@ const updateComment = async (req, res) => {
             return false;
         }
         const commentData ={
+            parentId        : parentId ? parentId : null,
             published       : req.body.published,
             title           : req.body.title,
             content         : req.body.content,
@@ -114,40 +105,10 @@ const deleteComment = async (req, res) =>{
     }
 }
 
-const replyComment = async (req, res) => {
-    try {
-        const parentId = req.body.parentId;
-        const commentById = await comment.getCommentById(parentId);
-        if(!commentById){
-            res.status(201).json('Comment does not exist or has been deleted');
-            return false;
-        }
-        const replyData = {
-            parentId        : parentId,
-            postId          : commentById.postId,
-            title           : commentById.title,
-            published       : 1,
-            createdAt       : localISOTime,
-            publishedAt     : localISOTime,
-            content         : req.body.content
-        }
-        comment.insertComment(replyData)
-        .then(row =>{
-            res.status(201).json({ message : "Comment already replied" });
-        })
-        .catch(err =>{
-            res.status(400).json({ message : err });
-        })
-    } catch (error) {
-        res.status(500).json({ message : error });
-    }
-}
-
 module.exports = {
     getAllComment,
-    getAllCommentByPostIdById,
+    getCommentById,
     createComment,
     updateComment,
-    deleteComment,
-    replyComment
+    deleteComment
 }

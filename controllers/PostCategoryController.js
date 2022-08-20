@@ -10,6 +10,23 @@ const getAllPostCategory = async (req, res) =>{
     }
 }
 
+const getPostCategoryByPostId = async (req, res) => {
+    try {
+        const postId = req.params.postId;
+        if(!postId){
+            res.status(201).json({ message : "Parameter id can't be empty"});
+            return false;
+        }
+        const posCategoryById = await postCategory.getPostCategoryByPostId(postId);
+        if(!posCategoryById){
+            res.status(201).json({message : `Post category with post id ${postId} not available`})
+        }
+        res.status(201).json({data : posCategoryById});
+    } catch (error) {
+        res.status(400).json({message : error});                
+    }
+}
+
 const createPostCategory = async (req, res) =>{
     try {       
         const postCategoryData ={
@@ -28,7 +45,6 @@ const createPostCategory = async (req, res) =>{
     }
 }
 
-
 const updatePostCategory = async (req, res) => {
     try {
         const postId = req.params.postId;
@@ -36,7 +52,7 @@ const updatePostCategory = async (req, res) => {
             res.status(201).json({ message : `Parameter id can't be empty`});
             return false;
         }
-        const postCategoryById = await postCategory.getPostCategoryById(postId);
+        const postCategoryById = await postCategory.getPostCategoryByPostId(postId);
         if(!postCategoryById){
             res.status(201).json({message : `Post category with postId ${postId} not available`});
             return false;
@@ -59,12 +75,12 @@ const updatePostCategory = async (req, res) => {
 const deletePostCategory = async (req, res) =>{
     try {
         const postId = req.params.postId;
-        const posCategoryById = await postCategory.getPostCategoryById(postId);
+        const posCategoryById = await postCategory.getPostCategoryByPostId(postId);
         if(!posCategoryById){
             res.status(201).json({ message : `Post category with postId ${postId} not available`});
             return false;
         }
-        category.deleteCategory(id)
+        postCategory.deletePostCategory(postId)
         .then(row =>{
             res.status(201).json({ message : `Post category with postId ${postId} has been deleted` });
         })
@@ -72,12 +88,14 @@ const deletePostCategory = async (req, res) =>{
             res.status(400).json({ message : err });
         })
     } catch (error) {
+        console.log(error);
         res.status(500).json({ message : error });
     }
 }
 
 module.exports = {
     getAllPostCategory,
+    getPostCategoryByPostId,
     createPostCategory,
     updatePostCategory,
     deletePostCategory

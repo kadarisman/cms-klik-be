@@ -33,9 +33,10 @@ const getPostById = async (req, res) => {
 
 const createPost = async (req, res) =>{
     try {
+        const parentId = req.body.parentId;
         const postData ={
             authorId        : req.body.authorId,
-            parentId        : req.body.parentId,
+            parentId        : parentId ? parentId : null,
             title           : req.body.title,
             metaTitle       : req.body.metaTitle,
             slug            : req.body.slug,
@@ -65,9 +66,10 @@ const updatePost = async (req, res) => {
             res.status(201).json({ message : `Post with id ${id} not available`});
             return false;
         }
+        const parentId = req.body.parentId;
         const postData ={
             authorId        : req.body.authorId,
-            parentId        : req.body.parentId,
+            parentId        : parentId ? parentId : null,
             title           : req.body.title,
             metaTitle       : req.body.metaTitle,
             slug            : req.body.slug,

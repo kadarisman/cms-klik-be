@@ -14,14 +14,6 @@ const getCommentById = (id) => {
     return knex('post_comment').where({id: id}).first();
 }
 
-const getAllCommentByPostId = (postId) => {
-    return knex('post_comment').where({postId: postId});
-}
-
-const getCommentByPostIdAndById = (postId, id) => {
-    return knex('post_comment').where({postId: postId}).andWhere({id: id});
-}
-
 const editComment = (data, id) => {
     return knex('post_comment').where({id: id}).update(data);
 }
@@ -34,8 +26,6 @@ module.exports = {
     insertComment,
     getAllComment,
     getCommentById,
-    getAllCommentByPostId,
-    getCommentByPostIdAndById,
     editComment,
     deleteComment
 }

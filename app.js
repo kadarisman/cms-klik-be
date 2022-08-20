@@ -7,6 +7,8 @@ const app           = express();
 const posts          = require('./routers/post');
 const gallerys       = require('./routers/gallery');
 const comments      = require('./routers/comment');
+const categorys     = require('./routers/category');
+const postCategorys  = require('./routers/postCategory');
 const server = http.createServer(app);
 const path = require('path');
 
@@ -23,6 +25,8 @@ app.get('/', (req, res) => {
 app.use('/posts/', posts);
 app.use('/gallerys', gallerys);
 app.use('/comments', comments);
+app.use('/categorys', categorys);
+app.use('/post-categorys', postCategorys);
 
 server.listen(port)
 
