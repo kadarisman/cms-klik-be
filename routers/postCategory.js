@@ -9,9 +9,9 @@ const {
 const { route } = require('./comment');
 
 router.get('/', getAllPostCategory);
-router.get('/:postId', getPostCategoryByPostId);
+router.get('/:postId?', getPostCategoryByPostId);
 router.post('/', createPostCategory);
-router.put('/:postId', updatePostCategory);
-router.delete('/:postId', deletePostCategory);
+router.put('/:postId?', updatePostCategory);
+router.delete('/:postId?', deletePostCategory);
 
 module.exports = router;

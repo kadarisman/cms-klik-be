@@ -14,7 +14,7 @@ const getPostCategoryByPostId = async (req, res) => {
     try {
         const postId = req.params.postId;
         if(!postId){
-            res.status(201).json({ message : "Parameter id can't be empty"});
+            res.status(201).json({ message : "Parameter post id can't be empty"});
             return false;
         }
         const posCategoryById = await postCategory.getPostCategoryByPostId(postId);
@@ -75,6 +75,10 @@ const updatePostCategory = async (req, res) => {
 const deletePostCategory = async (req, res) =>{
     try {
         const postId = req.params.postId;
+        if(!postId){
+            res.status(201).json({message: "Parameter id can't be empty"});
+            return false;
+        }
         const posCategoryById = await postCategory.getPostCategoryByPostId(postId);
         if(!posCategoryById){
             res.status(201).json({ message : `Post category with postId ${postId} not available`});
