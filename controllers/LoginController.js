@@ -1,15 +1,24 @@
-//const user = require('./../models/UserModel');
+const user = require('./../models/UserModel');
+const bcrypt = require('bcrypt');
 const jwt    = require('jsonwebtoken');
 
 const login =  async (req, res) => {
     try {
-        const user_login = await user.Login_check(req.body.username, req.body.password);
-        if(!user_login){
-            res.json({error : 'Wrong Password!'});
+        const {email, password} = req.body;
+        const userByEmail = await user.getuserByEmail(email);
+        const validPassword = await bcrypt.compare(password, userByEmail.passwordHash);
+        const userLogin = await user.loginCheck(email, validPassword);
+        if(!userLogin){
+            res.json({error : 'Wrong Usename or Password!'});
             return false;            
         }
-        const token = jwt.sign({id_user : user_login.id_user, username : user_login.username, role : user_login.role}, process.env.SECRET);
-        res.json({token : token});
+        const token = jwt.sign({
+            email : userLogin.email,
+            fullName : userLogin.fullName, 
+            role : userLogin.role
+        },process.env.SECRET);
+
+        res.status(201).json({token : token});
         var decode = jwt.verify(token, process.env.SECRET);
         req.auth = decode;
     } catch (error) {

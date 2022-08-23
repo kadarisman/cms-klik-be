@@ -6,6 +6,10 @@ const getAllContent = () => {
     return content;
 }
 
+const getContentById = (id) =>{
+    return knex('gallery').where({id: id}).first();
+}
+
 const getContentId = (id) => {
     const contentId = knex.select('g.id');
     contentId.from('gallery as g').where('g.id', '=', id);
@@ -22,7 +26,8 @@ const deletContent = (id) => {
 
 module.exports = {
     getAllContent,
+    getContentById,
     insertContent,
     deletContent,
-    getContentId
+    getContentId,
 }

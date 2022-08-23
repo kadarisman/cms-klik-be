@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const middleware = require ('../middleware/Auth');
 const {
     getAllPost,
     getPostById,
@@ -9,7 +10,7 @@ const {
 
 router.get('/', getAllPost);
 router.get('/:id', getPostById);
-router.post('/', createPost);
+router.post('/', middleware.isAuth, createPost);
 router.put('/:id', updatePost);
 router.delete('/:id', deletePost);
 

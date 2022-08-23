@@ -5,17 +5,13 @@ const isAuth = (req, res, next) => {
         const authHeader = req.headers['authorization'];
         const token     = authHeader && authHeader.split(' ')[1];
         if(token == null ){
-            res.status(401).json({
-                message: 'Token is Invalid'
-            });
+            res.status(401).json({message: 'Unauthorized'});
         }
         var decode = jwt.verify(token, process.env.SECRET);
         req.auth = decode; 
-          next();
+        next();
     } catch (error) {
-        res.status(401).json({
-        message: 'Token is Invalid'
-        });       
+        res.status(401).json({message: error});       
     }
 }
 

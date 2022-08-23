@@ -3,6 +3,7 @@ const multer  = require('multer'); //multipar form-data
 const path = require('path');
 const uploadDir = '/img/';
 const crypto = require('crypto');
+const fs  = require('fs');
 
 const storage = multer.diskStorage({
     destination: "./public"+uploadDir,
@@ -26,6 +27,21 @@ const getAllContent = async  (req, res) => {
     }
 }
 
+const getContenBytId = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const contentById = await gallery.getContentById(id);
+        if(!contentById){
+            res.status(201).json({message: `Content with id ${id} not availabe`});
+            return false;
+        }
+        res.status(201).json({data: contentById}); 
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({message: error});
+    }
+}
+
 const createContent = async (req, res) => {
     try {
         const contentData = {
@@ -46,25 +62,28 @@ const createContent = async (req, res) => {
 const deleteContent = async (req, res) => {
     try {
         const id = req.params.id;
-        const contentId = await gallery.getContentId(id);
-        if(!contentId){
+        const contentById = await gallery.getContentById(id);
+        if(!contentById){
             res.status(201).json({ message : `Content with id ${id} not available`});
             return false;
         }
         gallery.deletContent(id)
         .then(row => {
+            fs.unlinkSync('./public/img/'+contentById.content);
             res.status(201).json({ message: `Content with id ${id} has been deleted`});
         })
         .catch(err => {
             res.status(400).json({ message: err});
         })
     } catch (error) {
+        console.log(error);
         res.status(500).json({ message: error });        
     }
 }
 
 module.exports = {
     getAllContent,
+    getContenBytId,
     createContent,
     deleteContent,
     upload
