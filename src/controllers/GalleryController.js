@@ -49,7 +49,7 @@ const createContent = async (req, res) => {
         }
         gallery.insertContent(contentData)
         .then(row => {
-            res.status(201).json({ message : "A Content into Gallery has been created"})
+            res.status(201).json({ message : "Image uploaded"})
         })
         .catch(err => {
             res.status(400).json({ message: err});
