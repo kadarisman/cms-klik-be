@@ -1,5 +1,5 @@
 const http          = require('http');
-const port          = 7000;
+const port          = process.env.PORT || 7000;
 const express       = require('express');
 require('dotenv').config();
 const bodyParser    = require('body-parser');
