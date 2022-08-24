@@ -14,7 +14,6 @@ const fs            = require('fs');
 const cors          = require('cors');
 
 
-
 const swaggerFile   = 'swagger.json';
 const swaggerDataJson = JSON.parse(fs.readFileSync(swaggerFile, 'utf8'));
 const swaggerUi     = require('swagger-ui-express');
