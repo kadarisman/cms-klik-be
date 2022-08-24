@@ -11,12 +11,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(express.static('public')); 
 const fs            = require('fs');
+const cors          = require('cors');
+
 
 
 const swaggerFile   = 'swagger.json';
 const swaggerDataJson = JSON.parse(fs.readFileSync(swaggerFile, 'utf8'));
 const swaggerUi     = require('swagger-ui-express');
 
+app.use(cors());
 app.use('/public/img', express.static('public/img'));
 app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(swaggerDataJson));
 
