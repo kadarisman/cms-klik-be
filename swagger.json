@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0",
-    "title": "blog-backend",
+    "title": "cms-klik-backend",
     "contact": {}
   },
   "host": "quiet-harbor-45657.herokuapp.com",
@@ -18,7 +18,7 @@
     "application/json"
   ],
   "paths": {
-    "//posts": {
+    "/posts": {
       "get": {
         "summary": "Get posts",
         "tags": [
@@ -75,7 +75,7 @@
         "security": []
       }
     },
-    "//posts/4": {
+    "/posts/4": {
       "get": {
         "summary": "Get posts by id",
         "tags": [
@@ -138,7 +138,7 @@
         }
       }
     },
-    "//post": {
+    "/post": {
       "delete": {
         "summary": "Delete post by id",
         "tags": [
@@ -166,7 +166,7 @@
         }
       }
     },
-    "//comments": {
+    "/comments": {
       "get": {
         "summary": "Get comments",
         "tags": [
@@ -229,7 +229,7 @@
         }
       }
     },
-    "//comments/6": {
+    "/comments/6": {
       "get": {
         "summary": "Get comment by id",
         "tags": [
@@ -257,7 +257,7 @@
         }
       }
     },
-    "//comments/2": {
+    "/comments/2": {
       "put": {
         "summary": "Update comment",
         "tags": [
@@ -320,7 +320,7 @@
         }
       }
     },
-    "//categorys": {
+    "/categorys": {
       "get": {
         "summary": "Get category",
         "tags": [
@@ -383,7 +383,7 @@
         }
       }
     },
-    "//categorys/4": {
+    "/categorys/4": {
       "get": {
         "summary": "Get category by id",
         "tags": [
@@ -411,7 +411,7 @@
         }
       }
     },
-    "//categorys/6": {
+    "/categorys/6": {
       "put": {
         "summary": "Update category",
         "tags": [
@@ -448,7 +448,7 @@
         }
       }
     },
-    "//categorys/2": {
+    "/categorys/2": {
       "delete": {
         "summary": "Delete category",
         "tags": [
@@ -476,7 +476,7 @@
         }
       }
     },
-    "//post-categorys": {
+    "/post-categorys": {
       "get": {
         "summary": "Get post category",
         "tags": [
@@ -600,7 +600,7 @@
         }
       }
     },
-    "//post-categorys/40": {
+    "/post-categorys/40": {
       "get": {
         "summary": "Get post category by post id",
         "tags": [
@@ -628,7 +628,7 @@
         }
       }
     },
-    "//users": {
+    "/users": {
       "get": {
         "summary": "Get user",
         "tags": [
@@ -691,7 +691,7 @@
         }
       }
     },
-    "//users/3": {
+    "/users/3": {
       "get": {
         "summary": "Get user by id",
         "tags": [
@@ -719,7 +719,7 @@
         }
       }
     },
-    "//users/5": {
+    "/users/5": {
       "put": {
         "summary": "Update user",
         "tags": [
@@ -782,7 +782,7 @@
         }
       }
     },
-    "//gallerys": {
+    "/gallerys": {
       "get": {
         "summary": "Get all image",
         "tags": [
@@ -846,7 +846,7 @@
         }
       }
     },
-    "//gallerys/1": {
+    "/gallerys/1": {
       "get": {
         "summary": "Get image by id",
         "tags": [
@@ -874,7 +874,7 @@
         }
       }
     },
-    "//gallerys/30": {
+    "/gallerys/30": {
       "delete": {
         "summary": "Delete image",
         "tags": [
@@ -902,7 +902,7 @@
         }
       }
     },
-    "//login": {
+    "/login": {
       "post": {
         "summary": "Login",
         "tags": [
