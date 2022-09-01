@@ -1,14 +1,11 @@
 const konfig_knex = {
     client : "mysql2",
     connection : {
-        host : "nmuoym4nrnxt.us-east-1.psdb.cloud",
+        host : "103.144.79.194",
         port : "3306",
-        user : "e187r01164a7",
-        password : "pscale_pw_9hnFXw5PdScNKDFq2vi7FDMotE-VRP_oSYUT3P6vRGk",
-        database : "cms-klik",
-        ssl:{
-            "rejectUnauthorized":true
-        }
+        user : "support",
+        password : "Supp0rt",
+        database : "test"
     },
     debug : true
 }
