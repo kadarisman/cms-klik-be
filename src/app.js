@@ -12,6 +12,7 @@ app.use(bodyParser.urlencoded({extended : true}));
 app.use(express.static('public')); 
 const fs            = require('fs');
 const cors          = require('cors');
+require('dotenv').config();
 
 
 const swaggerFile   = 'swagger.json';
