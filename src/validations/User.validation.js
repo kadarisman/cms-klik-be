@@ -1,17 +1,17 @@
 const joi = require('joi');
-const dosen = require('./../models/UserModel');
+const user = require('./../models/UserModel');
 
 
 //validation for create
 const validCreateUser = joi.object({
-    username     : joi.string().max(15).required(),
-    password     : joi.required(),
-    role         : joi.string().valid('admin', 'superadmin').required()
+    fullName     : joi.string().required(),
+    mobile       : joi.number().integer().max(15).required(),
+    passwordHash : joi.required(),
+    email        : joi.required()
 });
 
 const validationCreateUser = async (req, res, next) => {
-    try {
-       
+    try {       
         const options = {
             abortEarly  : false,
             allowUnknow : true,
@@ -20,6 +20,12 @@ const validationCreateUser = async (req, res, next) => {
         const value = await validCreateUser.validate(req.body, options);
         if (value.error){
             res.json({error : value.error.details[0].message});
+            return false;
+        }
+        const email = req.body.email;
+        const emailCheck = await user.emailCheck(email);
+        if(emailCheck){
+            res.status(401).json({message : `Email ${email} Already exit`});
             return false;
         }
         next();
@@ -32,9 +38,8 @@ const validationCreateUser = async (req, res, next) => {
 
 //validation for update
 const validUpdateUser = joi.object({
-    username     : joi.string().max(15).required(),
-    password     : joi.required(),
-    role         : joi.string().valid('admin', 'superadmin').required()
+    fullName     : joi.string().required(),
+    mobile       : joi.number().integer().max(15).required(),
 });
 const validationUpdateUser = async (req, res, next) => {
     try {
@@ -49,9 +54,10 @@ const validationUpdateUser = async (req, res, next) => {
             res.json({error : value.error.details[0].message});
             return false;
         }
-        const id_user = await user.getIdExit(req.params.id_user);
-        if(!id_user){
-            res.json({error : 'Id User tidak ada'});
+        const id = req.params.id;
+        const userById = await user.getUserById(id);
+        if(!userById){
+            res.json({error : `User with ${id} not found`});
             return false;
         }
         next();        
@@ -63,26 +69,9 @@ const validationUpdateUser = async (req, res, next) => {
 }
 //end
 
-//validation for delete
-const validationDeleteUser = async (req, res, next) => {
-    try {
-        const id_user = await user.getIdExit(req.params.id_user);
-        if(!id_user){
-            res.json({error : 'Id User tidak ada'});
-            return false;
-        }
-        next();        
-    } catch (error) {
-        console.log(error);
-        res.status(401).json({error : error});
-        
-    }
-}
-//end
 
 
 module.exports = {
     validationCreateUser,
-    validationDeleteUser,
     validationUpdateUser
 }
