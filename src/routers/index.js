@@ -7,7 +7,9 @@ const gallerys       = require('./gallery');
 const comments      = require('./comment');
 const categorys     = require('./category');
 const postCategorys  = require('./postCategory');
+const public = require('./public/index');
 
+router.use('/public', public);
 router.use('/login', login);
 router.use('/users', users);
 router.use('/posts', posts);

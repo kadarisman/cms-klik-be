@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const middleware = require ('../middleware/Auth');
+const validation = require('../validations/Post.validation')
 const {
     getAllPost,
     getPostById,
@@ -10,8 +11,8 @@ const {
 
 router.get('/', getAllPost);
 router.get('/:id', getPostById);
-router.post('/', middleware.isAuth, createPost);
-router.put('/:id', updatePost);
-router.delete('/:id', deletePost);
+router.post('/', middleware.isAuth, validation.validationCreatePost, createPost);
+router.put('/:id', middleware.isAuth, validation.validationUpdatePost, updatePost);
+router.delete('/:id', middleware.isAuth, deletePost);
 
 module.exports = router;

@@ -6,7 +6,8 @@ const login =  async (req, res) => {
     try {
         const {email, password} = req.body;
         const userByEmail = await user.getuserByEmail(email);
-        const validPassword = await bcrypt.compare(password, userByEmail.passwordHash);
+        const passwordReplace = userByEmail.passwordHash.replace(/^\$2y(.+)$/i, '$2a$1');
+        const validPassword = await bcrypt.compare(password, passwordReplace);
         const userLogin = await user.loginCheck(email, validPassword);
         if(!userLogin){
             res.json({error : 'Wrong Usename or Password!'});

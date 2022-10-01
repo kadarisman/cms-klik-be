@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const middleware = require ('../middleware/Auth');
 const {
     getAllCategory,
     createCategory,
@@ -9,8 +10,8 @@ const {
 
 router.get('/', getAllCategory);
 router.get('/:id', getCategoryById)
-router.post('/', createCategory);
-router.put('/:id', updateCategory);
-router.delete('/:id', deleteCategory);
+router.post('/', middleware.isAuth, createCategory);
+router.put('/:id', middleware.isAuth, updateCategory);
+router.delete('/:id', middleware.isAuth, deleteCategory);
 
 module.exports = router;
