@@ -957,13 +957,6 @@
             "required": false,
             "default": "Bearer {token}",
             "type": "string"
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "required": false,
-            "default": "Bearer {token}",
-            "type": "string"
           }
         ],
         "responses": {
