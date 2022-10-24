@@ -7,6 +7,7 @@ const gallerys       = require('./gallery');
 const comments      = require('./comment');
 const categorys     = require('./category');
 const postCategorys  = require('./postCategory');
+const blogConfig  = require('./blogConfig');
 const public = require('./public/index');
 
 router.use('/public', public);
@@ -17,5 +18,6 @@ router.use('/gallerys', gallerys);
 router.use('/comments', comments);
 router.use('/categorys', categorys);
 router.use('/post-categorys', postCategorys);
+router.use('/blog-config', blogConfig);
 
 module.exports = router;
